@@ -6,8 +6,9 @@ https://github.com/CSSEGISandData/COVID-19
 Use `get_data.py` to pull the dataset, then run `compare_countries.py` to generate the graph and a CSV file with the related data. 
 
 Required python package libraries:
-`pandas
+```
+pandas
 matplotlib
 numpy
-datetime`
-
+datetime
+```
