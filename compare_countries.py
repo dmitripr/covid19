@@ -5,7 +5,7 @@ register_matplotlib_converters()
 
 countries = ['US', 'Germany', 'Italy', 'Korea, South', 'Iran', 'Spain', 'France']
 
-raw_data = pd.read_csv('~/raw_data_latest.csv')
+raw_data = pd.read_csv('covid19_temp/raw_data_latest.csv')
 cols = list(raw_data)
 cols[1], cols[0] = cols[0], cols[1]
 raw_data = raw_data.loc[:, cols]
@@ -27,7 +27,7 @@ for c in countries:
 
 aligned_countries = pd.concat(countries_collection, axis=1, sort=True)
 
-aligned_countries.to_csv('country_comparison.csv')
+aligned_countries.to_csv('covid19_temp/country_comparison.csv')
 
 plt.plot = aligned_countries.plot()
 plt.yscale('log')
