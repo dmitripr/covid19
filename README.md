@@ -12,3 +12,6 @@ matplotlib
 numpy
 datetime
 ```
+Sample graphs:
+![confirmed](/corona_confirmed.png)
+![deaths](/corona_deaths.png)
