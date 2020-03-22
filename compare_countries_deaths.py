@@ -37,6 +37,7 @@ plt.title('Total Deaths Since Day of First Death (As of '+as_of_date+')')
 plt.grid(True)
 plt.xlabel('Days Since 1st Death')
 plt.ylabel('Total Deaths (log)')
+plt.savefig('covid19_temp/corona_deaths.png', dpi=200)
 plt.show()
 
 print("Done")
