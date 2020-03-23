@@ -6,9 +6,9 @@ from datetime import timedelta
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
-country = 'Brazil'
+country = 'World Total'
 
-raw_data = pd.read_csv('covid19_temp/raw_data_latest.csv')
+raw_data = pd.read_csv('covid19_temp/raw_data_confirmed_latest.csv')
 cols = list(raw_data)
 cols[1], cols[0] = cols[0], cols[1]
 raw_data = raw_data.loc[:, cols]
@@ -56,5 +56,5 @@ for i in [3, 4, 5, 6, 7, 8]:
 #plt.plot(country_data.index,country_data['T-3'])
 #plt.show()
 
-country_data.to_csv("covid19_temp/country_data_" + str(country) + ".csv")
+country_data.to_csv("covid19_temp/predict_country_data_" + str(country) + ".csv")
 # print(raw_data)
