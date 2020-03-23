@@ -30,15 +30,15 @@ aligned_countries = pd.concat(countries_collection, axis=1, sort=True)
 
 aligned_countries.to_csv('covid19_temp/country_deaths_comparison.csv')
 
-plt.plot = aligned_countries.plot()
-plt.yscale('log')
+plt = aligned_countries.plot()
+plt.set_yscale('log')
 plt.minorticks_on()
-plt.title('Total Deaths Since Day of First Death (As of '+as_of_date+')')
+plt.set_title('Total Deaths Since Day of First Death (As of '+as_of_date+')')
 plt.grid(True)
-plt.xlabel('Days Since 1st Death')
-plt.ylabel('Total Deaths (log)')
-plt.savefig('covid19_temp/corona_deaths.png', dpi=200)
-plt.show()
+plt.set_xlabel('Days Since 1st Death')
+plt.set_ylabel('Total Deaths (log)')
+plt.figure.text(0.235, 0.115, "Data source: CSSE at JHU", verticalalignment='bottom', horizontalalignment='center', color='grey', fontsize=7)
+plt.figure.savefig('covid19_temp/corona_deaths.png', dpi=200)
 
 print("Done")
 

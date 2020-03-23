@@ -31,15 +31,15 @@ aligned_countries = pd.concat(countries_collection, axis=1, sort=True)
 
 aligned_countries.to_csv('covid19_temp/country_confirmed_comparison.csv')
 
-plt.plot = aligned_countries.plot()
-plt.yscale('log')
+plt = aligned_countries.plot()
+plt.set_yscale('log')
 plt.minorticks_on()
-plt.title('Total Confirmed Infected Since Day of First 100th Patient (As of '+as_of_date+')')
+plt.set_title('Total Confirmed Infected Since Day of First 100th Patient (As of '+as_of_date+')')
 plt.grid(True)
-plt.xlabel('Days Since 100th Patient')
-plt.ylabel('Total Confirmed (log)')
-plt.savefig('covid19_temp/corona_confirmed.png', dpi=200)
-plt.show()
+plt.set_xlabel('Days Since 100th Patient')
+plt.set_ylabel('Total Confirmed (log)')
+plt.figure.text(0.235, 0.115, "Data source: CSSE at JHU", verticalalignment='bottom', horizontalalignment='center', color='grey', fontsize=7)
+plt.figure.savefig('covid19_temp/corona_confirmed.png', dpi=200)
 
 print("Done")
 
