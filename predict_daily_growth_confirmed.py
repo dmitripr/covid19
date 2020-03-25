@@ -60,7 +60,7 @@ plt.set_title('Next '+str(days_to_predict)+' Days Confirmed Totals (As of '+as_o
 plt.grid(True)
 plt.set_xlabel('Days in the future')
 plt.set_ylabel('Total Confirmed (Millions)')
-plt.figure.text(0.235, 0.115, "Data source: CSSE at JHU", verticalalignment='bottom', horizontalalignment='center', color='grey', fontsize=7)
+plt.figure.text(0.15, 0.115, "Data source: CSSE at JHU // Data calculations: Dmitri Prigojev", verticalalignment='bottom', horizontalalignment='left', color='grey', fontsize=7)
 plt.figure.savefig('covid19_temp/predicting_confirmed.png', dpi=200)
 
 print("Done")

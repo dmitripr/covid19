@@ -8,6 +8,8 @@ Use `get_data.py` to pull the dataset.
 Then run `compare_countries_confirmed.py` and `compare_countries_deaths.py` to generate the graphs and a CSV files with the related data. 
 Then run `predict_daily_growth_confirmed.py` and `predict_daily_growth_deaths.py` to get predictions. 
 
+Prediction calculates and uses daily change rates from available data to calculate exponential regression and predict future based on calculated coefficients.
+
 Required python3 package libraries:
 ```
 pandas
