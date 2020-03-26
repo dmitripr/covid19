@@ -4,7 +4,7 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 countries = ['US', 'Germany', 'Italy', 'Korea, South', 'Iran', 'Spain', 'France', 'United Kingdom', 'Brazil']
-#countries = ['US', 'Italy', 'Spain']
+#countries = ['US', 'Germany', 'Spain', 'France', 'United Kingdom', 'Brazil']
 
 raw_data = pd.read_csv('covid19_temp/raw_data_confirmed_latest.csv')
 cols = list(raw_data)
