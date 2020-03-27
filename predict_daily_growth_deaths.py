@@ -10,14 +10,14 @@ from sklearn import metrics
 def exponential(x, a, k):
     return a * np.exp(x * k)
 
-dataset = pd.read_csv('covid19_temp/country_deaths_comparison.csv')
+dataset = pd.read_csv('data/country_deaths_comparison.csv')
 days_to_predict = 10
 countries = dataset.columns.values[1:]
 countries_collection = {}
 curve_fit_collection = {}
 
 #get the latest date in the report
-raw_data = pd.read_csv('covid19_temp/raw_data_confirmed_latest.csv')
+raw_data = pd.read_csv('data/raw_data_confirmed_latest.csv')
 as_of_date = raw_data.columns.values[-1]
 raw_data = [] #clear memory
 
@@ -64,7 +64,7 @@ for c in countries:
 
 aligned_countries = pd.concat(countries_collection, axis=1, sort=True)
 aligned_countries = aligned_countries.round(0)
-aligned_countries.to_csv('covid19_temp/predict_daily_growth_deaths_comparison.csv')
+aligned_countries.to_csv('data/predict_daily_growth_deaths_comparison.csv')
 
 graph = aligned_countries.plot()
 graph.minorticks_on()
@@ -73,7 +73,7 @@ graph.grid(True)
 graph.set_xlabel('Days in the future')
 graph.set_ylabel('Total Deaths')
 graph.figure.text(0.15, 0.115, "Data source: CSSE at JHU // Data calculations: Dmitri Prigojev", verticalalignment='bottom', horizontalalignment='left', color='grey', fontsize=7)
-graph.figure.savefig('covid19_temp/predicting_deaths.png', dpi=200)
+graph.figure.savefig('graphs/predicting_deaths.png', dpi=200)
 
 
 n = 1
@@ -87,7 +87,7 @@ for curve in curve_fit_collection:
     plt.title(curve, fontsize=8)
     n = n + 1
 plt.figtext(0.05, 0.05, "Data source: CSSE at JHU // Data calculations: Dmitri Prigojev", verticalalignment='bottom', horizontalalignment='left', color='grey', fontsize=7)
-plt.savefig('covid19_temp/rates_w_regression_deaths.png')
+plt.savefig('graphs/rates_w_regression_deaths.png')
 
 
 print("Done")

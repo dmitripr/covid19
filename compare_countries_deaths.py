@@ -6,7 +6,7 @@ register_matplotlib_converters()
 countries = ['US', 'Germany', 'Italy', 'Korea, South', 'Iran', 'Spain', 'France', 'United Kingdom', 'Brazil']
 #countries = ['US', 'Italy', 'Spain']
 
-raw_data = pd.read_csv('covid19_temp/raw_data_deaths_latest.csv')
+raw_data = pd.read_csv('data/raw_data_deaths_latest.csv')
 cols = list(raw_data)
 cols[1], cols[0] = cols[0], cols[1]
 raw_data = raw_data.loc[:, cols]
@@ -28,7 +28,7 @@ for c in countries:
 
 aligned_countries = pd.concat(countries_collection, axis=1, sort=True)
 
-aligned_countries.to_csv('covid19_temp/country_deaths_comparison.csv')
+aligned_countries.to_csv('data/country_deaths_comparison.csv')
 
 plt = aligned_countries.plot()
 plt.set_yscale('log')
@@ -38,7 +38,7 @@ plt.grid(True)
 plt.set_xlabel('Days Since 1st Death')
 plt.set_ylabel('Total Deaths (log)')
 plt.figure.text(0.15, 0.115, "Data source: CSSE at JHU // Data calculations: Dmitri Prigojev", verticalalignment='bottom', horizontalalignment='left', color='grey', fontsize=7)
-plt.figure.savefig('covid19_temp/corona_deaths.png', dpi=200)
+plt.figure.savefig('graphs/corona_deaths.png', dpi=200)
 
 print("Done")
 
