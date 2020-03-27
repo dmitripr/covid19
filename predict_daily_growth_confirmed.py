@@ -36,7 +36,15 @@ for c in countries:
 
     popt_exponential, pcov_exponential = scipy.optimize.curve_fit(exponential, X, y, p0=[0.5, -0.1])
     country_ds['curve_fit'] = country_ds.apply(lambda x: exponential(x['index'], popt_exponential[0], popt_exponential[1]), axis=1)
-    curve_fit_collection[c] = country_ds
+
+    # Calculate R squared of the regression line
+    residuals = y - exponential(X, popt_exponential[0], popt_exponential[1])
+    ss_res = np.sum(residuals ** 2)
+    ss_tot = np.sum((y - np.mean(y)) ** 2)
+    r_squared = round(1 - (ss_res / ss_tot), 3)
+
+    # Copy plot data and the fit line into the collection and set the name to include R squared, to be displayed later
+    curve_fit_collection[c+str(' (R^2=')+str(r_squared)+str(')')] = country_ds
 
     X_values = {}
     for n in range(len(country_ds.index)+1,len(country_ds.index)+days_to_predict+1): X_values[n-len(country_ds.index)] = n
