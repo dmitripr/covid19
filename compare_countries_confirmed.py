@@ -4,7 +4,7 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 countries = ['US', 'Germany', 'Italy', 'Korea, South', 'Iran', 'Spain', 'France', 'United Kingdom', 'Brazil']
-#countries = ['US', 'Germany', 'Spain', 'France', 'United Kingdom', 'Brazil']
+#countries = ['US', 'Germany', 'Spain', 'France', 'United Kingdom', 'Brazil', 'Russia']
 
 raw_data = pd.read_csv('covid19_temp/raw_data_confirmed_latest.csv')
 cols = list(raw_data)
@@ -15,7 +15,8 @@ raw_data = raw_data.set_index('Country/Region')
 raw_data.drop(labels=['Lat', 'Long', 'Province/State'], axis=1, inplace=True)
 
 raw_data = raw_data.groupby(level=0).sum()
-#raw_data.to_csv('covid19_temp/raw_data_grouped_by_country.csv')
+# Uncomment line below if you need to output grouped data into CSV
+# raw_data.to_csv('covid19_temp/raw_data_grouped_by_country.csv')
 raw_data = raw_data.loc[countries]
 raw_data = raw_data.transpose()
 as_of_date = raw_data.index[-1]
@@ -24,7 +25,7 @@ raw_data.reset_index(drop=True, inplace=True)
 countries_collection = {}
 
 for c in countries:
-    countries_collection[c] = raw_data[c][raw_data[c] > 100]
+    countries_collection[c] = raw_data[c][raw_data[c] > 100] # only consider data points after 100 cases has been reached
     countries_collection[c] = countries_collection[c].reset_index(drop=True)
 
 aligned_countries = pd.concat(countries_collection, axis=1, sort=True)

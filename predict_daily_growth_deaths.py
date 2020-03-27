@@ -63,7 +63,7 @@ for c in countries:
     countries_collection[c] = country_ds_pred[c]
 
 aligned_countries = pd.concat(countries_collection, axis=1, sort=True)
-
+aligned_countries = aligned_countries.round(0)
 aligned_countries.to_csv('covid19_temp/predict_daily_growth_deaths_comparison.csv')
 
 graph = aligned_countries.plot()
