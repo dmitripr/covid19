@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy
+import math
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
@@ -13,6 +14,7 @@ dataset = pd.read_csv('covid19_temp/country_confirmed_comparison.csv')
 days_to_predict = 10
 countries = dataset.columns.values[1:]
 countries_collection = {}
+curve_fit_collection = {}
 
 #get the latest date in the report
 raw_data = pd.read_csv('covid19_temp/raw_data_confirmed_latest.csv')
@@ -33,6 +35,8 @@ for c in countries:
     y = country_ds['rate'].values.flatten()
 
     popt_exponential, pcov_exponential = scipy.optimize.curve_fit(exponential, X, y, p0=[0.5, -0.1])
+    country_ds['curve_fit'] = country_ds.apply(lambda x: exponential(x['index'], popt_exponential[0], popt_exponential[1]), axis=1)
+    curve_fit_collection[c] = country_ds
 
     X_values = {}
     for n in range(len(country_ds.index)+1,len(country_ds.index)+days_to_predict+1): X_values[n-len(country_ds.index)] = n
@@ -54,13 +58,28 @@ aligned_countries = pd.concat(countries_collection, axis=1, sort=True)
 
 aligned_countries.to_csv('covid19_temp/predict_daily_growth_confirmed_comparison.csv')
 
-plt = aligned_countries.plot()
-plt.minorticks_on()
-plt.set_title('Next '+str(days_to_predict)+' Days Confirmed Totals (As of '+as_of_date+')')
-plt.grid(True)
-plt.set_xlabel('Days in the future')
-plt.set_ylabel('Total Confirmed (Millions)')
-plt.figure.text(0.15, 0.115, "Data source: CSSE at JHU // Data calculations: Dmitri Prigojev", verticalalignment='bottom', horizontalalignment='left', color='grey', fontsize=7)
-plt.figure.savefig('covid19_temp/predicting_confirmed.png', dpi=200)
+graph = aligned_countries.plot()
+graph.minorticks_on()
+graph.set_title('Next '+str(days_to_predict)+' Days Confirmed Totals (As of '+as_of_date+')')
+graph.grid(True)
+graph.set_xlabel('Days in the future')
+graph.set_ylabel('Total Confirmed (Millions)')
+graph.figure.text(0.15, 0.115, "Data source: CSSE at JHU // Data calculations: Dmitri Prigojev", verticalalignment='bottom', horizontalalignment='left', color='grey', fontsize=7)
+graph.figure.savefig('covid19_temp/predicting_confirmed.png', dpi=200)
+
+
+n = 1
+num_graph_rows = math.ceil(len(curve_fit_collection)/3)
+plt.figure(dpi=200)
+plt.suptitle('Daily Growth Rates of Confirmed with Regression (As of '+as_of_date+')')
+for curve in curve_fit_collection:
+    plt.subplot(num_graph_rows, 3, n, yticklabels='', xticklabels='', xticks=[], yticks=[])
+    plt.plot(curve_fit_collection[curve]['index'].values, curve_fit_collection[curve]['rate'].values)
+    plt.plot(curve_fit_collection[curve]['index'].values, curve_fit_collection[curve]['curve_fit'].values)
+    plt.title(curve, fontsize=8)
+    n = n + 1
+plt.figtext(0.05, 0.05, "Data source: CSSE at JHU // Data calculations: Dmitri Prigojev", verticalalignment='bottom', horizontalalignment='left', color='grey', fontsize=7)
+plt.savefig('covid19_temp/rates_w_regression_confirmed.png')
+
 
 print("Done")

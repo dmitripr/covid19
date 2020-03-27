@@ -23,8 +23,10 @@ scipy
 ```
 
 
-Sample graphs (Will try to keep updated):
+Latest graphs (Will try to keep updated):
 ![confirmed](/covid19_temp/corona_confirmed.png)
 ![deaths](/covid19_temp/corona_deaths.png)
 ![predict confirmed](/covid19_temp/predicting_confirmed.png)
+![daily confirmed growth rates with regression](/covid19_temp/rates_w_regression_confirmed.png)
 ![predict deaths](/covid19_temp/predicting_deaths.png)
+![daily deaths growth rates with regression](/covid19_temp/rates_w_regression_deaths.png)
