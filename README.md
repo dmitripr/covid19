@@ -11,6 +11,7 @@ Then run `predict_daily_growth_confirmed.py` and `predict_daily_growth_deaths.py
 Added `run_all_scripts.py` to execute all files automatically in order. 
 
 Prediction calculates and uses daily change rates from available data to calculate exponential regression and predict future based on calculated coefficients.
+The number of days regression calculation considers is controlled by a `days_for_regression` variable in the `predict_*` files.
 
 Required python3 package libraries:
 ```
