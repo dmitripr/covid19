@@ -12,6 +12,7 @@ def exponential(x, a, k):
 
 dataset = pd.read_csv('data/country_confirmed_comparison.csv')
 days_to_predict = 10
+days_for_regression = 5
 countries = dataset.columns.values[1:]
 countries_collection = {}
 curve_fit_collection = {}
@@ -34,13 +35,16 @@ for c in countries:
     X = country_ds['index'].values.flatten()
     y = country_ds['rate'].values.flatten()
 
-    popt_exponential, pcov_exponential = scipy.optimize.curve_fit(exponential, X, y, p0=[0.5, -0.1])
+    X_regression = country_ds['index'].iloc[-days_for_regression:].values.flatten()
+    y_regression = country_ds['rate'].iloc[-days_for_regression:].values.flatten()
+
+    popt_exponential, pcov_exponential = scipy.optimize.curve_fit(exponential, X_regression, y_regression, p0=[0.5, -0.1])
     country_ds['curve_fit'] = country_ds.apply(lambda x: exponential(x['index'], popt_exponential[0], popt_exponential[1]), axis=1)
 
     # Calculate R squared of the regression line
-    residuals = y - exponential(X, popt_exponential[0], popt_exponential[1])
+    residuals = y_regression - exponential(X_regression, popt_exponential[0], popt_exponential[1])
     ss_res = np.sum(residuals ** 2)
-    ss_tot = np.sum((y - np.mean(y)) ** 2)
+    ss_tot = np.sum((y_regression - np.mean(y_regression)) ** 2)
     r_squared = round(1 - (ss_res / ss_tot), 3)
 
     # Copy plot data and the fit line into the collection and set the name to include R squared, to be displayed later
@@ -71,7 +75,7 @@ graph.minorticks_on()
 graph.set_title('Next '+str(days_to_predict)+' Days Confirmed Totals (As of '+as_of_date+')')
 graph.grid(True)
 graph.set_xlabel('Days in the future')
-graph.set_ylabel('Total Confirmed (Millions)')
+graph.set_ylabel('Total Confirmed')
 graph.figure.text(0.15, 0.115, "Data source: CSSE at JHU // Data calculations: Dmitri Prigojev", verticalalignment='bottom', horizontalalignment='left', color='grey', fontsize=7)
 graph.figure.savefig('graphs/predicting_confirmed.png', dpi=200)
 
@@ -86,7 +90,7 @@ for curve in curve_fit_collection:
     plt.plot(curve_fit_collection[curve]['index'].values, curve_fit_collection[curve]['curve_fit'].values)
     plt.title(curve, fontsize=8)
     n = n + 1
-plt.figtext(0.05, 0.05, "Data source: CSSE at JHU // Data calculations: Dmitri Prigojev", verticalalignment='bottom', horizontalalignment='left', color='grey', fontsize=7)
+plt.figtext(0.05, 0.05, "Regression trend based on last "+str(days_for_regression)+" days only\nData source: CSSE at JHU // Data calculations: Dmitri Prigojev", verticalalignment='bottom', horizontalalignment='left', color='grey', fontsize=7)
 plt.savefig('graphs/rates_w_regression_confirmed.png')
 
 
