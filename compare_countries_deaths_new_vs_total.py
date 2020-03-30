@@ -34,9 +34,10 @@ for c in countries:
     for i in range(6,len(df)):
         df.iloc[i, 1] = df.loc[i][0] - df.loc[i-6][0]
     countries_collection[c] = df.reset_index(drop=True)
-    plt.scatter(df[c], df[c + '_new'], marker='.')
-    plt.plot(df[c], df[c + '_new'])
-plt.legend(countries)
+    plt.scatter(df[c], df[c + '_new'], marker='.', linewidths=0.5)
+    plt.plot(df[c], df[c + '_new'], linewidth=0.5)
+    plt.text(df[c].iloc[-1], df[c + '_new'].iloc[-1], c, fontsize=6, horizontalalignment='left', verticalalignment='top')
+#plt.legend(countries)
 plt.xlabel('Total Deaths (log)')
 plt.ylabel('New Deaths Past 6 Days (log)')
 plt.title('New Deaths vs Total Deaths (As of '+as_of_date+')')

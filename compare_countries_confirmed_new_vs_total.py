@@ -5,7 +5,7 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
 countries = ['US', 'Germany', 'Italy', 'Korea, South', 'Iran', 'Spain', 'France', 'United Kingdom', 'Brazil']
-#countries = ['US', 'Germany', 'Spain', 'France', 'United Kingdom', 'Brazil', 'Russia']
+#countries = ['US', 'Italy', 'Spain', 'China', 'Brazil', 'Russia', 'Israel']
 
 raw_data = pd.read_csv('data/raw_data_confirmed_latest.csv')
 cols = list(raw_data)
@@ -36,9 +36,10 @@ for c in countries:
     for i in range(6,len(df)):
         df.iloc[i, 1] = df.loc[i][0] - df.loc[i-6][0]
     countries_collection[c] = df.reset_index(drop=True)
-    plt.scatter(df[c], df[c + '_new'], marker='.')
-    plt.plot(df[c], df[c + '_new'])
-plt.legend(countries)
+    plt.scatter(df[c], df[c + '_new'], marker='.', linewidths=0.5)
+    plt.plot(df[c], df[c + '_new'], linewidth=0.5)
+    plt.text(df[c].iloc[-1], df[c + '_new'].iloc[-1], c, fontsize=6, horizontalalignment='left', verticalalignment='top')
+#plt.legend(countries)
 plt.xlabel('Total Cases (log)')
 plt.ylabel('New Cases Past 6 Days (log)')
 plt.title('New Cases vs Total Confirmed Cases (As of '+as_of_date+')')
