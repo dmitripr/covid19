@@ -16,7 +16,7 @@ raw_data.drop(labels=['Lat', 'Long', 'Province/State'], axis=1, inplace=True)
 
 raw_data = raw_data.groupby(level=0).sum()
 # Uncomment line below if you need to output grouped data into CSV
-# raw_data.to_csv('covid19_temp/raw_data_grouped_by_country.csv')
+raw_data.to_csv('data/raw_data_grouped_by_country.csv')
 raw_data = raw_data.loc[countries]
 raw_data = raw_data.transpose()
 as_of_date = raw_data.index[-1]

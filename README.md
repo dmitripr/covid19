@@ -25,6 +25,8 @@ scipy
 
 
 Latest graphs (Will try to keep updated):
+![confirmed new vs total](/graphs/confirmed_new_vs_total.png)
+![deaths new vs total](/graphs/deaths_new_vs_total.png)
 ![confirmed](/graphs/corona_confirmed.png)
 ![deaths](/graphs/corona_deaths.png)
 ![predict confirmed](/graphs/predicting_confirmed.png)
