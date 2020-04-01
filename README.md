@@ -30,7 +30,9 @@ After all plots are created you can run `ffmpeg` to generate MP4 file. I use the
 `ffmpeg -framerate 2 -i %04d_confirmed_new_vs_total.png -vcodec libx264 -crf 25  -pix_fmt yuv420p confirmed.mp4`
 
 Latest graphs (Will try to keep updated):
-![animation of confirmed](/animation/confirmed.mp4)
+
+Link to animation MP4: [https://github.com/dmitripr/covid19/blob/master/animation/confirmed.mp4?raw=true][Confirmed]
+
 ![confirmed new vs total](/graphs/confirmed_new_vs_total.png)
 ![deaths new vs total](/graphs/deaths_new_vs_total.png)
 ![confirmed](/graphs/corona_confirmed.png)
@@ -39,3 +41,5 @@ Latest graphs (Will try to keep updated):
 ![daily confirmed growth rates with regression](/graphs/rates_w_regression_confirmed.png)
 ![predict deaths](/graphs/predicting_deaths.png)
 ![daily deaths growth rates with regression](/graphs/rates_w_regression_deaths.png)
+
+[Confirmed]: https://github.com/dmitripr/covid19/blob/master/animation/confirmed.mp4?raw=true
