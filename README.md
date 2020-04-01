@@ -23,8 +23,14 @@ sklearn
 scipy
 ```
 
+**Animation**
+Animation it done by running `animation_confirmed_new_vs_total.py`, this script uses data gathered by `get_data.py`. It will place individual plots into `animation` folder.
+After all plots are created you can run `ffmpeg` to generate MP4 file. I use the following command:
+
+`ffmpeg -framerate 2 -i %04d_confirmed_new_vs_total.png -vcodec libx264 -crf 25  -pix_fmt yuv420p confirmed.mp4`
 
 Latest graphs (Will try to keep updated):
+![animation of confirmed](/animation/confirmed.mp4)
 ![confirmed new vs total](/graphs/confirmed_new_vs_total.png)
 ![deaths new vs total](/graphs/deaths_new_vs_total.png)
 ![confirmed](/graphs/corona_confirmed.png)
