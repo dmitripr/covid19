@@ -37,7 +37,7 @@ To run this in Terminal you need to first run: `export OBJC_DISABLE_INITIALIZE_F
 
 ### Latest graphs (will try to keep updated):
 
-**Link to animation of confirmed cases MP4:** [https://github.com/dmitripr/covid19/blob/master/animation/confirmed.mp4?raw=true][Confirmed]
+**Link to animation of confirmed cases MP4:** [Confirmed](https://github.com/dmitripr/covid19/blob/master/animation/confirmed.mp4?raw=true)
 
 ![confirmed new vs total](/graphs/confirmed_new_vs_total.png)
 ![deaths new vs total](/graphs/deaths_new_vs_total.png)
