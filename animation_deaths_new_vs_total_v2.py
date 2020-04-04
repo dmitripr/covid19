@@ -7,7 +7,7 @@ To run this in Terminal you need to first run:
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 After all graphs are created, use ffmpeg to compile into a movie:
-ffmpeg -framerate 2 -i %04d_deaths_new_vs_total.png -vcodec libx264 -crf 25 -pix_fmt yuv420p deaths.mov
+ffmpeg -framerate 2 -i %04d_deaths_new_vs_total.png -vcodec libx264 -crf 25 -pix_fmt yuv420p -movflags +faststart deaths.mov
 '''
 
 import pandas as pd
