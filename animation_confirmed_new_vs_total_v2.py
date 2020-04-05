@@ -6,8 +6,10 @@ OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 To run this in Terminal you need to first run:
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-After all graphs are created, use ffmpeg to compile into a movie:
+After all graphs are created, I use ffmpeg to compile into a movie:
 ffmpeg -framerate 2 -i %04d_confirmed_new_vs_total.png -vcodec libx264 -crf 25 -pix_fmt yuv420p -movflags +faststart confirmed.mov
+
+The scripts to delete temporary files at the end are for MacOS, and may need to be tweaked for your respective OS
 '''
 
 import pandas as pd
@@ -17,6 +19,7 @@ import math
 import threading
 import concurrent.futures
 import multiprocessing
+import subprocess
 from pandas.plotting import register_matplotlib_converters
 
 register_matplotlib_converters()
@@ -92,6 +95,7 @@ def main():
     num_days = len(raw_data.columns) - columns_to_skip
     days_in_each_thread = int(num_days / num_threads)
 
+    # create an empty 2D array
     ranges = [[0 for i in range(2)] for j in range(num_threads)]
     counter = [1]
 
@@ -122,6 +126,14 @@ def main():
     p.join()
     p.close()
 
+    rm_old_mov = subprocess.run(["rm", "animation/confirmed.mov"])
+    print("rm old MOV exit code: %d" % rm_old_mov.returncode)
+    ffmpeg_out = subprocess.run(["ffmpeg", "-framerate", "2", "-i", "animation/%04d_confirmed_new_vs_total.png",
+                                 "-vcodec", "libx264", "-crf", "25", "-pix_fmt", "yuv420p", "-movflags",
+                                 "+faststart", "animation/confirmed.mov"])
+    print("FFmpeg exit code: %d" % ffmpeg_out.returncode)
+    rm_files_out = subprocess.run(["rm animation/*.png"], shell=True)
+    print("rm PNG files exit code: %d" % rm_files_out.returncode)
     print("Done")
 
 
