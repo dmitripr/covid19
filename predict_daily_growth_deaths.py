@@ -12,7 +12,7 @@ def exponential(x, a, k):
 
 dataset = pd.read_csv('data/country_deaths_comparison.csv')
 days_to_predict = 10
-days_for_regression = 7
+days_for_regression = 8
 countries = dataset.columns.values[1:]
 countries_collection = {}
 curve_fit_collection = {}
@@ -38,7 +38,7 @@ for c in countries:
     X_regression = country_ds['index'].iloc[-days_for_regression:].values.flatten()
     y_regression = country_ds['rate'].iloc[-days_for_regression:].values.flatten()
 
-    popt_exponential, pcov_exponential = scipy.optimize.curve_fit(exponential, X_regression, y_regression, p0=[0.5, -0.1])
+    popt_exponential, pcov_exponential = scipy.optimize.curve_fit(exponential, X_regression, y_regression, p0=[0.5, -0.1], maxfev=2000)
     country_ds['curve_fit'] = country_ds.apply(lambda x: exponential(x['index'], popt_exponential[0], popt_exponential[1]), axis=1)
 
     # Calculate R squared of the regression line
