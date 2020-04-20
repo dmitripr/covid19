@@ -12,7 +12,7 @@ def exponential(x, a, k):
 
 dataset = pd.read_csv('data/country_deaths_comparison.csv')
 days_to_predict = 10
-days_for_regression = 8
+days_for_regression = 9
 countries = dataset.columns.values[1:]
 countries_collection = {}
 curve_fit_collection = {}
