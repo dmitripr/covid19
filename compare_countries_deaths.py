@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 
-countries = ['US', 'Germany', 'Italy', 'Korea, South', 'Iran', 'Spain', 'France', 'United Kingdom', 'Brazil']
+countries = ['US', 'Germany', 'Italy', 'Russia', 'Iran', 'Spain', 'France', 'United Kingdom', 'Brazil']
 #countries = ['US', 'Italy', 'Spain']
 
 raw_data = pd.read_csv('data/raw_data_deaths_latest.csv')
